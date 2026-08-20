@@ -16,6 +16,7 @@ import { Route as AuthenticatedCalculatorRouteImport } from './routes/_authentic
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDrugsRouteImport } from './routes/_authenticated/drugs'
 import { Route as AuthenticatedPatientsRouteImport } from './routes/_authenticated/patients'
+import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated/reports'
 import { Route as AuthenticatedStudiesRouteImport } from './routes/_authenticated/studies'
 import { Route as AuthenticatedPatientsIdRouteImport } from './routes/_authenticated/patients.$id'
 
@@ -53,6 +54,11 @@ const AuthenticatedPatientsRoute = AuthenticatedPatientsRouteImport.update({
   path: '/patients',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedStudiesRoute = AuthenticatedStudiesRouteImport.update({
   id: '/studies',
   path: '/studies',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/drugs': typeof AuthenticatedDrugsRoute
   '/patients': typeof AuthenticatedPatientsRouteWithChildren
+  '/reports': typeof AuthenticatedReportsRoute
   '/studies': typeof AuthenticatedStudiesRoute
   '/patients/$id': typeof AuthenticatedPatientsIdRoute
 }
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/drugs': typeof AuthenticatedDrugsRoute
   '/patients': typeof AuthenticatedPatientsRouteWithChildren
+  '/reports': typeof AuthenticatedReportsRoute
   '/studies': typeof AuthenticatedStudiesRoute
   '/patients/$id': typeof AuthenticatedPatientsIdRoute
 }
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/drugs': typeof AuthenticatedDrugsRoute
   '/_authenticated/patients': typeof AuthenticatedPatientsRouteWithChildren
+  '/_authenticated/reports': typeof AuthenticatedReportsRoute
   '/_authenticated/studies': typeof AuthenticatedStudiesRoute
   '/_authenticated/patients/$id': typeof AuthenticatedPatientsIdRoute
 }
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/drugs'
     | '/patients'
+    | '/reports'
     | '/studies'
     | '/patients/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/drugs'
     | '/patients'
+    | '/reports'
     | '/studies'
     | '/patients/$id'
   id:
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/drugs'
     | '/_authenticated/patients'
+    | '/_authenticated/reports'
     | '/_authenticated/studies'
     | '/_authenticated/patients/$id'
   fileRoutesById: FileRoutesById
@@ -187,6 +199,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPatientsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/reports': {
+      id: '/_authenticated/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AuthenticatedReportsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/studies': {
       id: '/_authenticated/studies'
       path: '/studies'
@@ -222,6 +241,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedDrugsRoute: typeof AuthenticatedDrugsRoute
   AuthenticatedPatientsRoute: typeof AuthenticatedPatientsRouteWithChildren
+  AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
   AuthenticatedStudiesRoute: typeof AuthenticatedStudiesRoute
 }
 
@@ -230,6 +250,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedDrugsRoute: AuthenticatedDrugsRoute,
   AuthenticatedPatientsRoute: AuthenticatedPatientsRouteWithChildren,
+  AuthenticatedReportsRoute: AuthenticatedReportsRoute,
   AuthenticatedStudiesRoute: AuthenticatedStudiesRoute,
 }
 
