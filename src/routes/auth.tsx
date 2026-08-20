@@ -38,7 +38,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function describeAuthError(
-  error: { message: string; code?: string; status?: number },
+  error: { message: string; code?: string | undefined; status?: number | undefined },
   email: string,
 ): { title: string; description: string } {
   const code = error.code ?? "";
