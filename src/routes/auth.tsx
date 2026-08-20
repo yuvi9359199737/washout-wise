@@ -37,6 +37,62 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
+function describeAuthError(
+  error: { message: string; code?: string; status?: number },
+  email: string,
+): { title: string; description: string } {
+  const code = error.code ?? "";
+  const message = error.message.toLowerCase();
+
+  if (code === "invalid_credentials" || message.includes("invalid login credentials")) {
+    return {
+      title: "Email or password is incorrect",
+      description: `No account matches ${email || "that email"} with this password. Check for typos, or use the Create account tab if you haven't registered yet.`,
+    };
+  }
+  if (code === "email_not_confirmed" || message.includes("not confirmed")) {
+    return {
+      title: "Email address not confirmed yet",
+      description:
+        "Open the confirmation link we emailed you, then sign in again. If it never arrived, create the account again to get a fresh link.",
+    };
+  }
+  if (code === "user_not_found") {
+    return {
+      title: "No account found for this email",
+      description: "Switch to the Create account tab to register with this email address.",
+    };
+  }
+  if (code === "over_email_send_rate_limit" || error.status === 429) {
+    return {
+      title: "Too many attempts",
+      description: "Please wait a minute before trying again.",
+    };
+  }
+  if (code === "user_banned") {
+    return {
+      title: "This account is locked",
+      description: "Contact your study administrator to restore access.",
+    };
+  }
+  if (message.includes("password") && message.includes("least")) {
+    return {
+      title: "Password is too short",
+      description: "Use at least 6 characters.",
+    };
+  }
+  if (message.includes("fetch") || message.includes("network")) {
+    return {
+      title: "Can't reach the server",
+      description: "Check your internet connection and try again.",
+    };
+  }
+  return {
+    title: "Sign-in failed",
+    description: `${error.message}. If this keeps happening, contact your study administrator.`,
+  };
+}
+
 function AuthPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
