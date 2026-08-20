@@ -54,11 +54,18 @@ function AuthPage() {
 
   async function handleSignIn(event: React.FormEvent) {
     event.preventDefault();
+    if (!email.trim() || !password) {
+      toast.error("Enter your email and password", {
+        description: "Both fields are required to sign in.",
+      });
+      return;
+    }
     setBusy(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
     if (error) {
-      toast.error(error.message);
+      const { title, description } = describeAuthError(error, email);
+      toast.error(title, { description });
       return;
     }
     navigate({ to: "/dashboard", replace: true });
