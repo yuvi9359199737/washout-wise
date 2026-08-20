@@ -78,7 +78,7 @@ function PatientsPage() {
       const { data, error } = await supabase
         .from("patients")
         .select(
-          "id, study_id_number, pseudonym, status, enrolled_at, studies(protocol_number), patient_medications(id, clearance_date, is_prohibited)",
+          "id, study_id_number, pseudonym, status, enrollment_date, studies(protocol_number), patient_medications(id, clearance_date, is_prohibited)",
         )
         .order("study_id_number");
       if (error) throw error;
@@ -236,8 +236,8 @@ function PatientsPage() {
                     );
                     const worst = statuses.includes("PROHIBITED")
                       ? "PROHIBITED"
-                      : statuses.includes("IN_WASHOUT")
-                        ? "IN_WASHOUT"
+                      : statuses.includes("PENDING")
+                        ? "PENDING"
                         : "CLEARED";
                     return (
                       <TableRow key={p.id}>

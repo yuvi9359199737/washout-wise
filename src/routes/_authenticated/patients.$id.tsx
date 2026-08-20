@@ -295,7 +295,7 @@ function PatientProfilePage() {
                                 navigator.clipboard.writeText(
                                   buildEdcText({
                                     preferredName: dict?.preferred_name ?? med.drug_name_raw,
-                                    atcCode: dict?.atc_code,
+                                    atcCode: dict?.atc_code ?? null,
                                     dose: med.dose,
                                     frequency: med.frequency,
                                     lastDoseDate: med.last_dose_date,
