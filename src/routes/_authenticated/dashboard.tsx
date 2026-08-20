@@ -75,7 +75,7 @@ function DashboardPage() {
             <Link to="/drugs">Search drug</Link>
           </Button>
           <Button asChild size="sm">
-            <Link to="/calculator">
+            <Link to="/calculator" search={{ drug: undefined }}>
               <Activity className="mr-1.5 h-4 w-4" /> Calculate clearance
             </Link>
           </Button>
