@@ -140,7 +140,14 @@ function AuthPage() {
     });
     setBusy(false);
     if (error) {
-      toast.error(error.message);
+      if (error.code === "user_already_exists" || error.message.toLowerCase().includes("already")) {
+        toast.error("An account already uses this email", {
+          description: "Switch to the Sign in tab and enter your password instead.",
+        });
+        return;
+      }
+      const { title, description } = describeAuthError(error, email);
+      toast.error(title, { description });
       return;
     }
     if (data.session) {
