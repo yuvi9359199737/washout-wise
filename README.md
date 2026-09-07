@@ -2,8 +2,6 @@
 
 ---
 
-# MASTER PROMPT: BUILD A PRODUCTION-READY "WASHOUT" APP
-
 ## 1. Product Overview
 
 **Product Name:** WASHOUT (Medication Clearance & ConMed Mapper)
